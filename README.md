@@ -1,90 +1,125 @@
 # rs-markdown-parser
 
-This project was bootstrapped by [create-neon](https://www.npmjs.com/package/create-neon).
+A Node.js module for converting Markdown files to HTML using Rust, powered by the `pulldown-cmark` library and Neon bindings.
 
-## Building rs-markdown-parser
+## Features
 
-Building rs-markdown-parser requires a [supported version of Node and Rust](https://github.com/neon-bindings/neon#platform-support).
+- Fast Markdown to HTML conversion using Rust's `pulldown-cmark`.
+- Optional GitHub Flavored Markdown (GFM) support for tables, footnotes, strikethrough, task lists, and heading attributes.
+- Exports HTML as an ES module for easy integration.
 
-To run the build, run:
+## Installation
 
-```sh
-$ npm run build
+1. **Prerequisites**:
+
+   - [Node.js](https://nodejs.org/) (v14 or later recommended).
+   - [Rust](https://www.rust-lang.org/tools/install) and Cargo.
+   - A C++ compiler (e.g., `build-essential` on Ubuntu, or Visual Studio Build Tools on Windows).
+
+2. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/aliezzahn/rs-markdown-parser.git
+   cd rs-markdown-parser
+   ```
+
+3. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+4. **Build the module**:
+
+   - For development (debug build):
+     ```bash
+     npm run debug
+     ```
+   - For production (release build):
+     ```bash
+     npm run build
+     ```
+   - For cross-compilation (if targeting different platforms):
+     ```bash
+     npm run cross
+     ```
+
+   The build process compiles the Rust code into a native Node.js module (`index.node`).
+
+## Usage
+
+The module exports a single function, `processMarkdown`, which converts a Markdown file to HTML and returns it as an ES module string.
+
+### Parameters
+
+- `filePath` (string): Path to the Markdown file.
+- `gfm` (boolean): Enable GitHub Flavored Markdown features (tables, footnotes, strikethrough, task lists, heading attributes).
+
+### Example
+
+```javascript
+const { processMarkdown } = require("rs-markdown-parser");
+const { join } = require("path");
+
+// Convert a Markdown file to HTML
+const filePath = join(__dirname, "./test.md");
+const result = processMarkdown(filePath, false);
+
+console.log(result); // Outputs: export default `<html_content>`;
 ```
 
-This command uses the [@neon-rs/cli](https://www.npmjs.com/package/@neon-rs/cli) utility to assemble the binary Node addon from the output of `cargo`.
+### Example Markdown File (`test.md`)
 
-## Exploring rs-markdown-parser
+```markdown
+# Hello, World!
 
-After building rs-markdown-parser, you can explore its exports at the Node console:
+This is a **Markdown** file.
 
-```sh
-$ npm i
-$ npm run build
-$ node
-> require('.').hello()
-'hello node'
+- Item 1
+- Item 2
 ```
 
-## Available Scripts
+### Output
 
-In the project directory, you can run:
-
-#### `npm install`
-
-Installs the project, including running `npm run build`.
-
-#### `npm run build`
-
-Builds the Node addon (`index.node`) from source, generating a release build with `cargo --release`.
-
-Additional [`cargo build`](https://doc.rust-lang.org/cargo/commands/cargo-build.html) arguments may be passed to `npm run build` and similar commands. For example, to enable a [cargo feature](https://doc.rust-lang.org/cargo/reference/features.html):
-
-```
-npm run build -- --feature=beetle
+```javascript
+export default `<h1>Hello, World!</h1>\n<p>This is a <strong>Markdown</strong> file.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>`;
 ```
 
-#### `npm run debug`
+### Using with GFM
 
-Similar to `npm run build` but generates a debug build with `cargo`.
+To enable GitHub Flavored Markdown features:
 
-#### `npm run cross`
-
-Similar to `npm run build` but uses [cross-rs](https://github.com/cross-rs/cross) to cross-compile for another platform. Use the [`CARGO_BUILD_TARGET`](https://doc.rust-lang.org/cargo/reference/config.html#buildtarget) environment variable to select the build target.
-
-#### `npm test`
-
-Runs the unit tests by calling `cargo test`. You can learn more about [adding tests to your Rust code](https://doc.rust-lang.org/book/ch11-01-writing-tests.html) from the [Rust book](https://doc.rust-lang.org/book/).
-
-## Project Layout
-
-The directory structure of this project is:
-
-```
-rs-markdown-parser/
-├── Cargo.toml
-├── README.md
-├── src/
-|   └── lib.rs
-├── index.node
-├── package.json
-└── target/
+```javascript
+const result = processMarkdown(filePath, true);
 ```
 
-| Entry          | Purpose                                                                                                                                  |
-|----------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| `Cargo.toml`   | The Cargo [manifest file](https://doc.rust-lang.org/cargo/reference/manifest.html), which informs the `cargo` command.                   |
-| `README.md`    | This file.                                                                                                                               |
-| `src/`         | The directory tree containing the Rust source code for the project.                                                                      |
-| `lib.rs`       | Entry point for the Rust source code.                                                                                                          |
-| `index.node`   | The main module, a [Node addon](https://nodejs.org/api/addons.html) generated by the build and pointed to by `"main"` in `package.json`. |
-| `package.json` | The npm [manifest file](https://docs.npmjs.com/cli/v7/configuring-npm/package-json), which informs the `npm` command.                    |
-| `target/`      | Binary artifacts generated by the Rust build.                                                                                            |
+This enables support for:
 
-## Learn More
+- Tables
+- Footnotes
+- Strikethrough
+- Task lists
+- Heading attributes
 
-Learn more about:
+## Development
 
-- [Neon](https://neon-bindings.com).
-- [Rust](https://www.rust-lang.org).
-- [Node](https://nodejs.org).
+- **Run tests**:
+
+  ```bash
+  npm run test
+  ```
+
+- **Rebuild after changes**:
+  Modify the Rust code in `src/lib.rs` and run `npm run debug` or `npm run build`.
+
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/aliezzahn/rs-markdown-parser).
+
+## Issues
+
+Report bugs or request features on the [GitHub Issues page](https://github.com/aliezzahn/rs-markdown-parser/issues).
