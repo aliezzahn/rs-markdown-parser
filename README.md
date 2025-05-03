@@ -76,12 +76,21 @@ This is a **Markdown** file.
 
 - Item 1
 - Item 2
+
+# Product Comparison
+
+| Product      | Price   | Features                   | In Stock |
+|--------------|---------|----------------------------|----------|
+| Phone A      | $299    | 64GB, 12MP Camera, 4G LTE  | Yes      |
+| Phone B      | $399    | 128GB, 48MP Camera, 5G     | No       |
+| Phone C      | $499    | 256GB, 108MP Camera, 5G    | Yes      |
 ```
 
 ### Output
 
 ```javascript
-export default `<h1>Hello, World!</h1>\n<p>This is a <strong>Markdown</strong> file.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>`;
+export default `<h1>Hello, World!</h1>\n<p>This is a <strong>Markdown</strong> file.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>\n<h1>Product Comparison</h1>\n
+<table>\n<thead>\n<tr><th>Product</th><th>Price</th><th>Features</th><th>In Stock</th></tr>\n</thead>\n<tbody>\n<tr><td>Phone A</td><td>$299</td><td>64GB, 12MP Camera, 4G LTE</td><td>Yes</td></tr>\n<tr><td>Phone B</td><td>$399</td><td>128GB, 48MP Camera, 5G</td><td>No</td></tr>\n<tr><td>Phone C</td><td>$499</td><td>256GB, 108MP Camera, 5G</td><td>Yes</td></tr>\n</tbody>\n</table>`;
 ```
 
 ### Using with GFM
