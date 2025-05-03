@@ -79,13 +79,17 @@ This is a **Markdown** file.
 
 - Item 1
 - Item 2
+
+# Product Comparison
+
+| Product      | Price   | Features                   | In Stock |
+|--------------|---------|----------------------------|----------|
+| Phone A      | $299    | 64GB, 12MP Camera, 4G LTE  | Yes      |
+| Phone B      | $399    | 128GB, 48MP Camera, 5G     | No       |
+| Phone C      | $499    | 256GB, 108MP Camera, 5G    | Yes      |
 ```
 
 ### Output (ES Module String)
-
-```js
-export default `<h1>Hello, World!</h1>\n<p>This is a <strong>Markdown</strong> file.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>`;
-```
 
 ---
 
