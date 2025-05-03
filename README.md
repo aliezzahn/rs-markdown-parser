@@ -7,29 +7,17 @@ A Node.js module for converting Markdown files to HTML using Rust, powered by th
 - Fast Markdown to HTML conversion using Rust's `pulldown-cmark`.
 - Optional GitHub Flavored Markdown (GFM) support for tables, footnotes, strikethrough, task lists, and heading attributes.
 - Exports HTML as an ES module for easy integration.
+- TypeScript support with type definitions.
 
 ## Installation
 
-1. **Prerequisites**:
-
-   - [Node.js](https://nodejs.org/) (v14 or later recommended).
-   - [Rust](https://www.rust-lang.org/tools/install) and Cargo.
-   - A C++ compiler (e.g., `build-essential` on Ubuntu, or Visual Studio Build Tools on Windows).
-
-2. **Clone the repository**:
+1. **Install the package**:
 
    ```bash
-   git clone https://github.com/aliezzahn/rs-markdown-parser.git
-   cd rs-markdown-parser
+   npm install rs-markdown-parser
    ```
 
-3. **Install dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-4. **Build the module**:
+2. **Build the module** (if modifying source):
 
    - For development (debug build):
      ```bash
@@ -52,18 +40,29 @@ The module exports a single function, `processMarkdown`, which converts a Markdo
 
 ### Parameters
 
-- `filePath` (string): Path to the Markdown file.
-- `gfm` (boolean): Enable GitHub Flavored Markdown features (tables, footnotes, strikethrough, task lists, heading attributes).
+- `filePath` (string): The file path to the Markdown file (e.g., `"./test.md"`). Must be a valid path to an existing file.
+- `gfm` (boolean): Enables GitHub Flavored Markdown features. Set to `true` to support tables, footnotes, strikethrough, task lists, and heading attributes; `false` for standard Markdown.
 
-### Example
+### JavaScript Example
 
 ```javascript
 const { processMarkdown } = require("rs-markdown-parser");
 const { join } = require("path");
 
-// Convert a Markdown file to HTML
 const filePath = join(__dirname, "./test.md");
 const result = processMarkdown(filePath, false);
+
+console.log(result); // Outputs: export default `<html_content>`;
+```
+
+### TypeScript Example
+
+```typescript
+import { processMarkdown } from "rs-markdown-parser";
+import { join } from "path";
+
+const filePath: string = join(__dirname, "./test.md");
+const result: string = processMarkdown(filePath, false);
 
 console.log(result); // Outputs: export default `<html_content>`;
 ```
@@ -101,6 +100,24 @@ This enables support for:
 - Task lists
 - Heading attributes
 
+## TypeScript Support
+
+This module includes TypeScript type definitions in `index.d.ts`. To use with TypeScript:
+
+1. Ensure TypeScript is installed:
+
+   ```bash
+   npm install -g typescript
+   ```
+
+2. Include the module in your TypeScript project:
+
+   ```bash
+   npm install rs-markdown-parser
+   ```
+
+3. The type definitions are automatically picked up from `index.d.ts` when you import the module.
+
 ## Development
 
 - **Run tests**:
@@ -110,7 +127,7 @@ This enables support for:
   ```
 
 - **Rebuild after changes**:
-  Modify the Rust code in `src/lib.rs` and run `npm run debug` or `npm run build`.
+  Modify the Rust code in `src/lib.rs` or TypeScript definitions in `index.d.ts` and run `npm run debug` or `npm run build`.
 
 ## License
 
