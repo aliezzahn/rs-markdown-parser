@@ -1,73 +1,76 @@
-# rs-markdown-parser
 
-A Node.js module for converting Markdown files to HTML using Rust, powered by the `pulldown-cmark` library and Neon bindings.
+# 🚀 rs-markdown-parser
 
-## Features
+A blazing-fast Node.js module for converting Markdown to HTML — powered by Rust’s [`pulldown-cmark`](https://docs.rs/pulldown-cmark) and [Neon](https://neon-bindings.com/) for seamless Node integration.
 
-- Fast Markdown to HTML conversion using Rust's `pulldown-cmark`.
-- Optional GitHub Flavored Markdown (GFM) support for tables, footnotes, strikethrough, task lists, and heading attributes.
-- Exports HTML as an ES module for easy integration.
-- TypeScript support with type definitions.
+---
 
-## Installation
+## ✨ Features
 
-1. **Install the package**:
+- ⚡ **Ultra-fast conversion** using Rust’s performance and `pulldown-cmark`.
+- 🧩 **Optional GitHub Flavored Markdown (GFM)** support — tables, footnotes, strikethrough, task lists, and heading attributes.
+- 📦 **ES module export** — easily import HTML in your frontend projects.
+- 🛡️ **TypeScript ready** — includes full type definitions.
 
-   ```bash
-   npm install rs-markdown-parser
-   ```
+---
 
-2. **Build the module** (if modifying source):
+## 📦 Installation
 
-   - For development (debug build):
-     ```bash
-     npm run debug
-     ```
-   - For production (release build):
-     ```bash
-     npm run build
-     ```
-   - For cross-compilation (if targeting different platforms):
-     ```bash
-     npm run cross
-     ```
+```bash
+npm install rs-markdown-parser
+````
 
-   The build process compiles the Rust code into a native Node.js module (`index.node`).
+> 💡 *Note: To modify or rebuild the native module, follow the build instructions below.*
 
-## Usage
+---
 
-The module exports a single function, `processMarkdown`, which converts a Markdown file to HTML and returns it as an ES module string.
+## 🛠️ Building the Module
 
-### Parameters
+If you're editing the Rust source or cross-compiling, use one of the following scripts:
 
-- `filePath` (string): The file path to the Markdown file (e.g., `"./test.md"`). Must be a valid path to an existing file.
-- `gfm` (boolean): Enables GitHub Flavored Markdown features. Set to `true` to support tables, footnotes, strikethrough, task lists, and heading attributes; `false` for standard Markdown.
+| Mode        | Command         | Notes                            |
+| ----------- | --------------- | -------------------------------- |
+| Debug       | `npm run debug` | Fast builds for development      |
+| Release     | `npm run build` | Optimized builds for production  |
+| Cross-build | `npm run cross` | Build for other target platforms |
 
-### JavaScript Example
+The build will generate a native Node.js addon (`index.node`).
 
-```javascript
+---
+
+## 🚀 Usage
+
+### Importing the Module
+
+#### JavaScript
+
+```js
 const { processMarkdown } = require("rs-markdown-parser");
 const { join } = require("path");
 
-const filePath = join(__dirname, "./test.md");
+const filePath = join(__dirname, "test.md");
 const result = processMarkdown(filePath, false);
 
-console.log(result); // Outputs: export default `<html_content>`;
+console.log(result); // => export default `<html_content>`;
 ```
 
-### TypeScript Example
+#### TypeScript
 
-```typescript
+```ts
 import { processMarkdown } from "rs-markdown-parser";
 import { join } from "path";
 
-const filePath: string = join(__dirname, "./test.md");
+const filePath: string = join(__dirname, "test.md");
 const result: string = processMarkdown(filePath, false);
 
-console.log(result); // Outputs: export default `<html_content>`;
+console.log(result); // => export default `<html_content>`;
 ```
 
-### Example Markdown File (`test.md`)
+---
+
+## 🧪 Example
+
+### Sample Markdown (`test.md`)
 
 ```markdown
 # Hello, World!
@@ -86,66 +89,109 @@ This is a **Markdown** file.
 | Phone C      | $499    | 256GB, 108MP Camera, 5G    | Yes      |
 ```
 
-### Output
+### Output (ES Module String)
 
-```javascript
-export default `<h1>Hello, World!</h1>\n<p>This is a <strong>Markdown</strong> file.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>\n<h1>Product Comparison</h1>\n
-<table>\n<thead>\n<tr><th>Product</th><th>Price</th><th>Features</th><th>In Stock</th></tr>\n</thead>\n<tbody>\n<tr><td>Phone A</td><td>$299</td><td>64GB, 12MP Camera, 4G LTE</td><td>Yes</td></tr>\n<tr><td>Phone B</td><td>$399</td><td>128GB, 48MP Camera, 5G</td><td>No</td></tr>\n<tr><td>Phone C</td><td>$499</td><td>256GB, 108MP Camera, 5G</td><td>Yes</td></tr>\n</tbody>\n</table>`;
-```
+---
 
-### Using with GFM
+## 🧬 GitHub Flavored Markdown (GFM)
 
-To enable GitHub Flavored Markdown features:
+Enable extended Markdown features with the `gfm` flag:
 
-```javascript
+```js
 const result = processMarkdown(filePath, true);
 ```
 
-This enables support for:
+Supported GFM features:
 
-- Tables
-- Footnotes
-- Strikethrough
-- Task lists
-- Heading attributes
+* ✔️ Task lists
+* 📑 Footnotes
+* 🔡 Strikethrough (`~~text~~`)
+* 🧮 Tables
+* 🏷️ Heading attributes (`## Title {#id}`)
 
-## TypeScript Support
+---
 
-This module includes TypeScript type definitions in `index.d.ts`. To use with TypeScript:
+## 🔷 TypeScript Support
+
+This module includes `index.d.ts` for full TypeScript support. To use:
 
 1. Ensure TypeScript is installed:
 
    ```bash
-   npm install -g typescript
+   npm install --save-dev typescript
    ```
 
-2. Include the module in your TypeScript project:
+2. Import the module as usual. Type definitions are automatically applied.
 
-   ```bash
-   npm install rs-markdown-parser
-   ```
+---
 
-3. The type definitions are automatically picked up from `index.d.ts` when you import the module.
+## 🧪 Development & Testing
 
-## Development
+### Run tests:
 
-- **Run tests**:
+```bash
+npm run test
+```
 
-  ```bash
-  npm run test
-  ```
+### Rebuild after source changes:
 
-- **Rebuild after changes**:
-  Modify the Rust code in `src/lib.rs` or TypeScript definitions in `index.d.ts` and run `npm run debug` or `npm run build`.
+* Edit Rust: `src/lib.rs`
+* Edit Types: `index.d.ts`
 
-## License
+Then:
 
-MIT License. See [LICENSE](LICENSE) for details.
+```bash
+npm run debug
+# or
+npm run build
+```
 
-## Contributing
+---
 
-Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/aliezzahn/rs-markdown-parser).
+## 📄 License
 
-## Issues
+MIT License — see [LICENSE](./LICENSE).
 
-Report bugs or request features on the [GitHub Issues page](https://github.com/aliezzahn/rs-markdown-parser/issues).
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please open an issue or PR:
+
+👉 [GitHub Repository](https://github.com/aliezzahn/rs-markdown-parser)
+
+---
+
+## 🐞 Issues & Support
+
+Found a bug or need a feature?
+
+📬 Report it on [GitHub Issues](https://github.com/aliezzahn/rs-markdown-parser/issues)
+
+## 👥 Contributors
+
+Thanks to these awesome people for their work on this project:
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/aliezzahn">
+        <img src="https://avatars.githubusercontent.com/u/164005474?v=4" width="100px;" alt="aliezzahn" />
+        <br /><sub><b>aliezzahn</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/0xre2a">
+        <img src="https://avatars.githubusercontent.com/u/90304241?v=4" width="100px;" alt="0xre2a" />
+        <br /><sub><b>0xre2a</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/morihn">
+        <img src="https://avatars.githubusercontent.com/u/191381570?v=4" width="100px;" alt="morihn" />
+        <br /><sub><b>morihn</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
