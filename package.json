@@ -13,8 +13,22 @@
     "build": "npm run cargo-build -- --release",
     "cross": "npm run cross-build -- --release"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliezzahn/rs-markdown-parser.git"
+  },
+  "keywords": [
+    "github",
+    "changelog",
+    "auto-changelog",
+    "auto-changlog-generator"
+  ],
+  "author": "aliezzahn",
+  "bugs": {
+    "url": "https://github.com/aliezzahn/rs-markdown-parser/issues"
+  },
+  "homepage": "https://github.com/aliezzahn/rs-markdown-parser#readme",
   "devDependencies": {
     "@neon-rs/cli": "0.1.82"
   }
